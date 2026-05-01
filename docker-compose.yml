@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: chefmate-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./chefmate_backend
+    container_name: chefmate-backend
+    ports:
+      - "8000:8000"
+    environment:
+      # Sobrescribimos el PORT para asegurarnos de que coincida con el puerto expuesto localmente
+      - PORT=8000
+      - MONGO_URI=mongodb://mongodb:27017
+      # Si tienes la clave de Google aquí localmente, puedes inyectarla:
+      # - GOOGLE_API_KEY=tu_clave_aqui
+    env_file:
+      - ./chefmate_backend/.env
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./chefmate_frontend/chefmate_frontend
+      args:
+        # Nota: Vite compila las variables de entorno en el build, así que para
+        # docker-compose (entorno de pruebas local) la inyectamos en la construcción
+        - VITE_API_URL=http://localhost:8000/ChefMate
+        - VITE_RECAPTCHA_SITE_KEY=6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
+    container_name: chefmate-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - PORT=80
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:

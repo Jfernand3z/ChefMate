@@ -1,0 +1,16 @@
+server {
+    listen ${PORT};
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+
+    # Habilitar SPA routing (React Router)
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # Deshabilitar logs de favicon y robots
+    location = /favicon.ico { log_not_found off; access_log off; }
+    location = /robots.txt  { log_not_found off; access_log off; }
+}

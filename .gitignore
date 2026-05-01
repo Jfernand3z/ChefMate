@@ -1,0 +1,5 @@
+# Ignorar .agent en la raíz
+/.agent/
+
+# Ignorar .agent en cualquier subdirectorio
+**/.agent/

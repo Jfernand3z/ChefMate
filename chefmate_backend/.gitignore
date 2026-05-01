@@ -1,0 +1,9 @@
+#Entorno virtual de python
+.venv/
+__pycache__/
+
+# Configuraciones de VSCode
+.vscode/
+
+# Configuraciones de jwt
+.env
