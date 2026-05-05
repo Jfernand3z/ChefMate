@@ -255,7 +255,7 @@ fun RecipeGeneratorScreen(
                                         FilterChip(
                                             selected = recipeType == value,
                                             onClick = { recipeType = value },
-                                            label = { Text(label, style = AppTypography.labelMedium) },
+                                            label = { Text(label, style = AppTypography.labelMedium, color = if (recipeType == value) Color.White else TextPrimary) },
                                             colors = FilterChipDefaults.filterChipColors(
                                                 containerColor = Color.Transparent,
                                                 labelColor = TextPrimary,
@@ -281,7 +281,7 @@ fun RecipeGeneratorScreen(
                                                     selectedProducts = if (isSelected) selectedProducts - prod.name else selectedProducts + prod.name
                                                     if (!selectedProducts.contains(priorityProduct)) priorityProduct = ""
                                                 },
-                                                label = { Text(prod.name, style = AppTypography.labelMedium) },
+                                                label = { Text(prod.name, style = AppTypography.labelMedium, color = if (isSelected) Color.White else TextPrimary) },
                                                 colors = FilterChipDefaults.filterChipColors(
                                                     containerColor = Color.Transparent,
                                                     labelColor = TextPrimary,
@@ -314,7 +314,7 @@ fun RecipeGeneratorScreen(
                                                                 Icon(Icons.Filled.Star, contentDescription = null, modifier = Modifier.size(12.dp), tint = Color.White)
                                                                 Spacer(Modifier.width(4.dp))
                                                             }
-                                                            Text(prod.name, style = AppTypography.labelMedium)
+                                                            Text(prod.name, style = AppTypography.labelMedium, color = if (isPriority) Color.White else TextPrimary)
                                                         }
                                                     },
                                                     colors = FilterChipDefaults.filterChipColors(

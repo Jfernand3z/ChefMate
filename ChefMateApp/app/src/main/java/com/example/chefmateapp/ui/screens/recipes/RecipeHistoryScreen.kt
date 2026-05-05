@@ -97,7 +97,7 @@ fun RecipeHistoryScreen(viewModel: RecipeViewModel) {
                                 Icon(Icons.Default.ErrorOutline, contentDescription = null, modifier = Modifier.size(48.dp), tint = Danger)
                                 Text(s.message, color = TextMuted, style = AppTypography.bodyMedium)
                                 Button(onClick = { viewModel.fetchHistory() }, colors = ButtonDefaults.buttonColors(containerColor = Primary)) {
-                                    Text("Reintentar")
+                                    Text("Reintentar", color = Color.White)
                                 }
                             }
                         }
@@ -301,7 +301,7 @@ fun HistoryRecipeCard(
                         if (isCooking) {
                             CircularProgressIndicator(color = Color.White, modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
                             Spacer(Modifier.width(6.dp))
-                            Text("Cocinando…", style = AppTypography.labelMedium)
+                            Text("Cocinando…", style = AppTypography.labelMedium, color = Color.White)
                         } else {
                             Icon(Icons.Outlined.OutdoorGrill, contentDescription = null, modifier = Modifier.size(16.dp), tint = if (maxServings > 0) Color.White else TextMuted)
                             Spacer(Modifier.width(6.dp))

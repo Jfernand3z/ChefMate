@@ -209,7 +209,8 @@ fun ProductDialog(
                     Text(
                         text = if (product == null) "CREAR PRODUCTO" else "ACTUALIZAR PRODUCTO",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        color = Color.White
                     )
                 }
             }
