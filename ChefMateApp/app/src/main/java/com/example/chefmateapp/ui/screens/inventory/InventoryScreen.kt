@@ -49,6 +49,7 @@ fun InventoryScreen(
     var showProductDialog by remember { mutableStateOf(false) }
     var showProfileDialog by remember { mutableStateOf(false) }
     var selectedProduct by remember { mutableStateOf<Product?>(null) }
+    var productToDelete by remember { mutableStateOf<Product?>(null) }
 
     LaunchedEffect(Unit) {
         productViewModel.fetchProducts()
@@ -210,7 +211,7 @@ fun InventoryScreen(
                                     selectedProduct = product
                                     showProductDialog = true
                                 },
-                                onDelete = { productViewModel.deleteProduct(product.id) }
+                                onDelete = { productToDelete = product }
                             )
                         }
                     }
@@ -244,6 +245,62 @@ fun InventoryScreen(
                 }
                 showProductDialog = false
             }
+        )
+    }
+
+    // Diálogo de confirmación para eliminar
+    productToDelete?.let { product ->
+        AlertDialog(
+            onDismissRequest = { productToDelete = null },
+            icon = {
+                Icon(
+                    Icons.Default.Delete,
+                    contentDescription = null,
+                    tint = Danger,
+                    modifier = Modifier.size(32.dp)
+                )
+            },
+            title = {
+                Text(
+                    "Eliminar producto",
+                    fontFamily = Poppins,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    color = TextPrimary
+                )
+            },
+            text = {
+                Text(
+                    "¿Estás seguro de que quieres eliminar \"${product.name}\"? Esta acción no se puede deshacer.",
+                    style = AppTypography.bodyMedium,
+                    color = TextMuted
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        productViewModel.deleteProduct(product.id)
+                        productToDelete = null
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Danger,
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Eliminar", fontWeight = FontWeight.SemiBold)
+                }
+            },
+            dismissButton = {
+                OutlinedButton(
+                    onClick = { productToDelete = null },
+                    shape = RoundedCornerShape(12.dp)
+                ) {
+                    Text("Cancelar", color = TextMuted)
+                }
+            },
+            shape = RoundedCornerShape(20.dp),
+            containerColor = Surface
         )
     }
 

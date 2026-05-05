@@ -257,6 +257,8 @@ fun RecipeGeneratorScreen(
                                             onClick = { recipeType = value },
                                             label = { Text(label, style = AppTypography.labelMedium) },
                                             colors = FilterChipDefaults.filterChipColors(
+                                                containerColor = Color.Transparent,
+                                                labelColor = TextPrimary,
                                                 selectedContainerColor = Primary,
                                                 selectedLabelColor = Color.White
                                             )
@@ -281,6 +283,8 @@ fun RecipeGeneratorScreen(
                                                 },
                                                 label = { Text(prod.name, style = AppTypography.labelMedium) },
                                                 colors = FilterChipDefaults.filterChipColors(
+                                                    containerColor = Color.Transparent,
+                                                    labelColor = TextPrimary,
                                                     selectedContainerColor = Primary,
                                                     selectedLabelColor = Color.White
                                                 )
@@ -314,6 +318,8 @@ fun RecipeGeneratorScreen(
                                                         }
                                                     },
                                                     colors = FilterChipDefaults.filterChipColors(
+                                                        containerColor = Color.Transparent,
+                                                        labelColor = TextPrimary,
                                                         selectedContainerColor = Accent,
                                                         selectedLabelColor = Color.White
                                                     )
