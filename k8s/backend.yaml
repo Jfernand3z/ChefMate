@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: chefmate-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chefmate-backend
+  template:
+    metadata:
+      labels:
+        app: chefmate-backend
+    spec:
+      containers:
+        - name: backend
+          # IMPORTANTE: Reemplaza con el nombre de la imagen que subas a Docker Hub
+          image: jcfernandez20/chefmate-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: chefmate-config
+            - secretRef:
+                name: chefmate-secrets
+          # Opcional: Define explícitamente variables adicionales si hace falta
+          env:
+            - name: PORT
+              value: "8000"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  # En la nube (AWS/GCP) puedes usar LoadBalancer.
+  # Para pruebas locales con Minikube o servicios internos, usamos NodePort o ClusterIP.
+  type: LoadBalancer
+  selector:
+    app: chefmate-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      # nodePort: 30000 # Solo si el tipo es NodePort

@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chefmate-config
+data:
+  # Entorno del backend
+  PORT: "8000"
+  API_PREFIX: "/ChefMate"
+  FRONTEND_ORIGIN: "http://localhost"  # O la URL de producción si se conoce
+  # Entorno del frontend
+  VITE_API_URL: "http://backend-service:8000/ChefMate"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: chefmate-secrets
+type: Opaque
+stringData:
+  # Estas variables se inyectarán en los contenedores como variables de entorno.
+  # En un entorno de producción real, no subas este archivo a Git.
+  MONGO_URI: "mongodb+srv://jcfernandez597:UYLl9aIqYaIZkhzf@cluster0.czhdu78.mongodb.net/?appName=Cluster0"
+  # GOOGLE_API_KEY: "tu_clave_de_gemini"
+  # SECRET_KEY: "tu_clave_secreta"
