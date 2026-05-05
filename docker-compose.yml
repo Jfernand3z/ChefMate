@@ -17,11 +17,11 @@ services:
     ports:
       - "8000:8000"
     environment:
-      # Sobrescribimos el PORT para asegurarnos de que coincida con el puerto expuesto localmente
       - PORT=8000
       - MONGO_URI=mongodb://mongodb:27017
-      # Si tienes la clave de Google aquí localmente, puedes inyectarla:
-      # - GOOGLE_API_KEY=tu_clave_aqui
+      # CORS: permite el frontend corriendo en Docker (puerto 3000) y en desarrollo (5173)
+      - FRONTEND_ORIGIN=http://localhost:3000
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:5173,http://localhost:8080
     env_file:
       - ./chefmate_backend/.env
     depends_on:
