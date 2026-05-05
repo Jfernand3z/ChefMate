@@ -3,3 +3,15 @@
 
 # Ignorar .agent en cualquier subdirectorio
 **/.agent/
+
+# Variables de entorno (contienen claves secretas)
+**/.env
+.env
+
+# Kubernetes secrets (contienen claves reales)
+k8s/config.yaml
+
+# Dependencias
+**/node_modules/
+**/.venv/
+**/__pycache__/
